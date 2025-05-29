@@ -83,8 +83,8 @@ pyparsing==3.2.3
 python-dateutil==2.9.0.post0
 python-json-logger==3.3.0
 pytz==2025.2
-pywin32==310
-pywinpty==2.0.15
+pywin32==310; platform_system=="Windows"  
+pywinpty==2.0.15; platform_system=="Windows"  
 PyYAML==6.0.2
 pyzmq==26.4.0
 referencing==0.36.2
@@ -118,3 +118,4 @@ webcolors==24.11.1
 webencodings==0.5.1
 websocket-client==1.8.0
 widgetsnbextension==4.0.14
+wordcloud==1.9.4
