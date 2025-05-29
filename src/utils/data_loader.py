@@ -11,7 +11,8 @@ def load_data(file_path):
     """
     try:
         data = pd.read_csv(file_path)
-        data.drop(columns="Unnamed: 0", inplace=True)
+        if "Unnamed: 0" in data.columns:
+            data.drop(columns="Unnamed: 0", inplace=True)
         print(f"Data loaded successfully from {file_path}")
         return data
     except FileNotFoundError:

@@ -11,6 +11,12 @@ This directory contains Jupyter notebooks related to **financial news and stock 
 **Purpose**:  
 Performs a full pipeline of **text preprocessing**, **topic modeling**, and **publisher-based analysis** for financial news headlines. It aims to extract key financial themes (e.g., earnings reports, analyst coverage) and assess how different publishers specialize in certain types of news.
 
+### 2. `META_eda.ipynb`
+
+**Purpose**:  
+
+Clean and prepare the **META_historical_data.csv**, then save the cleaned, indexed, and sorted data to **META_cleaned.csv**.
+
 **Key Tasks Covered**:
 
 - ✅ **Text Cleaning**  
