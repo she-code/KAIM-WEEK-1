@@ -1,22 +1,20 @@
 name: CI
 on: [push, pull_request]
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout repo
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      # Setup Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: '3.10'
 
-      # Install TA-Lib system dependencies
-      - name: Install TA-Lib dependencies
+      - name: Install TA-Lib system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential wget
@@ -28,13 +26,13 @@ jobs:
           sudo make install
           cd ..
           rm -rf ta-lib/ ta-lib-0.4.0-src.tar.gz
+          echo "/usr/lib" | sudo tee -a /etc/ld.so.conf.d/ta-lib.conf
+          sudo ldconfig
 
-      # Install Python dependencies
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Run tests
       - name: Run test
         run: python --version
