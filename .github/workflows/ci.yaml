@@ -22,17 +22,24 @@ jobs:
           tar -xzf ta-lib-0.4.0-src.tar.gz
           cd ta-lib/
           ./configure --prefix=/usr
-          make
+          make -j$(nproc)
           sudo make install
           cd ..
           rm -rf ta-lib/ ta-lib-0.4.0-src.tar.gz
-          echo "/usr/lib" | sudo tee -a /etc/ld.so.conf.d/ta-lib.conf
+          sudo mkdir -p /usr/local/lib
+          sudo ln -sf /usr/lib/libta_lib.so* /usr/local/lib/
+          echo "/usr/local/lib" | sudo tee /etc/ld.so.conf.d/ta-lib.conf
           sudo ldconfig
-          sudo ln -s /usr/lib/libta_lib.so /usr/local/lib/libta_lib.so
+
+      - name: Verify TA-Lib installation
+        run: |
+          ldconfig -p | grep ta_lib
+          ls -l /usr/lib/libta_lib.so* /usr/local/lib/libta_lib.so*
 
       - name: Install Python dependencies
         run: |
-          export LD_LIBRARY_PATH=/usr/lib:/usr/local/lib:$LD_LIBRARY_PATH
+          export TA_LIBRARY_PATH=/usr/lib
+          export TA_INCLUDE_PATH=/usr/include
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
