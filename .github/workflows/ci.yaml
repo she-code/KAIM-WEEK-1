@@ -28,9 +28,11 @@ jobs:
           rm -rf ta-lib/ ta-lib-0.4.0-src.tar.gz
           echo "/usr/lib" | sudo tee -a /etc/ld.so.conf.d/ta-lib.conf
           sudo ldconfig
+          sudo ln -s /usr/lib/libta_lib.so /usr/local/lib/libta_lib.so
 
       - name: Install Python dependencies
         run: |
+          export LD_LIBRARY_PATH=/usr/lib:/usr/local/lib:$LD_LIBRARY_PATH
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
